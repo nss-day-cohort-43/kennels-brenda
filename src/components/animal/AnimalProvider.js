@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react"
+import React, { useState, createContext, useCallback } from "react"
 
 /*
     The context is imported and used by individual components
@@ -10,13 +10,15 @@ export const AnimalContext = createContext()
  This component establishes what data can be used.
  */
 export const AnimalProvider = (props) => {
-    const [animals, setAnimals] = useState([])
+	const [animals, setAnimals] = useState([])
+	const [ searchTerms, setSearchTerms ] = useState("")
 
-    const getAnimals = () => {
+    const getAnimals = useCallback(() => {
+        console.log("getAnimals")
         return fetch("http://localhost:8088/animals?_expand=location")
             .then(res => res.json())
             .then(setAnimals)
-    }
+    }, [setAnimals])
 
     const addAnimal = animalObj => {
         return fetch("http://localhost:8088/animals", {
@@ -26,8 +28,28 @@ export const AnimalProvider = (props) => {
             },
             body: JSON.stringify(animalObj)
         })
-            .then(getAnimals)
-    }
+	}
+	
+	const getAnimalById = useCallback((id) => {
+		return fetch(`http://localhost:8088/animals/${id}?_expand=location&_expand=customer`)
+			.then(res => res.json())
+	}, [])
+
+	const releaseAnimal = animalId => {
+		return fetch(`http://localhost:8088/animals/${animalId}`, {
+			method: "DELETE"
+		}).then(getAnimals)
+	}
+
+	const updateAnimal = animal => {
+		return fetch(`http://localhost:8088/animals/${animal.id}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(animal)
+		}).then(getAnimals)
+	}
 
     /*
         You return a context provider which has the
@@ -37,7 +59,7 @@ export const AnimalProvider = (props) => {
     */
     return (
         <AnimalContext.Provider value={{
-            animals, getAnimals, addAnimal
+            animals, getAnimals, addAnimal, getAnimalById, releaseAnimal, updateAnimal, setSearchTerms, searchTerms
         }}>
             {props.children}
         </AnimalContext.Provider>

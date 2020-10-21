@@ -1,9 +1,13 @@
 import React from "react"
 import "./Animal.css"
+import { Link } from "react-router-dom"
 
 export const AnimalCard = ({animal, location}) => (
     <section className="animal">
-        <h3 className="animal__name">{animal.name}</h3>
-        <address className="location__address">{location}</address>
+	<h3 className="animal__name">
+            <Link to={`/animals/detail/${animal.id}`}>
+                { animal.name }
+            </Link>
+        </h3>
     </section>
 )

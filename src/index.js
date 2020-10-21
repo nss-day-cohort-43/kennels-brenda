@@ -5,10 +5,10 @@ import { Kennel } from "./components/Kennel.js"
 import "./index.css"
 
 ReactDOM.render(
-    <React.StrictMode>
+   
         <Router>
             <Kennel />
         </Router>
-    </React.StrictMode>,
+    ,
     document.getElementById("root")
 )

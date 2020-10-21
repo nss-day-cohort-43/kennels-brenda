@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react"
 import { AnimalContext } from "./AnimalProvider"
-import { AnimalCard } from "./AnimalCard"
+import { AnimalCardSemantic } from "./AnimalCardSemantic"
 import "./Animal.css"
 import { useHistory } from "react-router-dom"
+import { Card } from "semantic-ui-react"
 
-export const AnimalList = () => {
+export const AnimalList2 = () => {
     const { animals, getAnimals, searchTerms } = useContext(AnimalContext)
 
     // Since you are no longer ALWAYS displaying all of the animals
@@ -38,13 +39,13 @@ export const AnimalList = () => {
             <button onClick={() => history.push("/animals/create")}>
                 Make Reservation
             </button>
-            <div className="animals">
+            <Card.Group>
 				{
 				filteredAnimals.map(animal => {
-					return <AnimalCard key={animal.id} animal={animal} />
+					return <AnimalCardSemantic key={animal.id} animal={animal} />
 				})
 				}
-			</div>
+            </Card.Group>
         </>
     )
 }
