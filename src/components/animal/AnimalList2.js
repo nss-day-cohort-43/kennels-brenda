@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { AnimalContext } from "./AnimalProvider"
 import { AnimalCardBootstrap } from "./AnimalCardBootstrap"
+import { AnimalCard2 } from "./AnimalCard2"
 import "./Animal.css"
 import { useHistory } from "react-router-dom"
 import { CardDeck, CardGroup } from "react-bootstrap"
@@ -44,7 +45,7 @@ export const AnimalList2 = () => {
            <CardDeck>
 				{
 				filteredAnimals.map(animal => {
-					return <AnimalCardBootstrap key={animal.id} animal={animal} />
+					return <AnimalCard2 vkey={animal.id} animal={animal} />
 				})
                 }
                 </CardDeck>
