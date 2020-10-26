@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react"
 import { AnimalContext } from "./AnimalProvider"
-import { AnimalCardSemantic } from "./AnimalCardSemantic"
+import { AnimalCardBootstrap } from "./AnimalCardBootstrap"
 import "./Animal.css"
 import { useHistory } from "react-router-dom"
-import { Card } from "semantic-ui-react"
+import { CardDeck, CardGroup } from "react-bootstrap"
 
 export const AnimalList2 = () => {
     const { animals, getAnimals, searchTerms } = useContext(AnimalContext)
@@ -39,13 +39,17 @@ export const AnimalList2 = () => {
             <button onClick={() => history.push("/animals/create")}>
                 Make Reservation
             </button>
-            <Card.Group>
+            <div className="container">
+          {/*the deck give same height */}
+           <CardDeck>
 				{
 				filteredAnimals.map(animal => {
-					return <AnimalCardSemantic key={animal.id} animal={animal} />
+					return <AnimalCardBootstrap key={animal.id} animal={animal} />
 				})
-				}
-            </Card.Group>
+                }
+                </CardDeck>
+           
+            </div>
         </>
     )
 }

@@ -4,8 +4,9 @@ import { ApplicationViews } from "./ApplicationViews";
 import { NavBar } from "./nav/NavBar";
 import { Login } from "./auth/Login";
 import { Register } from "./auth/Register";
+import './../custom.scss'
 import "./Kennel.css";
-import 'semantic-ui-css/semantic.min.css'
+
 
 export const Kennel = () => (
   <>
